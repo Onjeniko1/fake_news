@@ -31,12 +31,7 @@ label_names = files_train.target_names
 labelled_files = files_train.filenames
 
 
-data_tags = ["id","Status","title","filename"]
-
-
-
-###########################################data_list = []
-
+data_tags = ["title","Status","title","filename"]
 
 
 
@@ -50,20 +45,20 @@ for f in labelled_files:
 ##################33data = pd.DataFrame.from_records(data_list, columns=data_tags)
 data = pd.DataFrame.from_records(data, columns=data_tags)
 
-# 20 news groups
-###########################################num_labels = 20
-num_labels = 48
+
+# 48 news groups..............................................
+num_labels = 47
 vocab_size = 15000
 batch_size = 100
 
 # lets take 80% data as training and remaining 20% for test.
 train_size = int(len(data) * .8)
 
-train_posts = data['id'][:train_size]
+train_posts = data['title'][:train_size]
 train_tags = data['Status'][:train_size]
 train_files_names = data['filename'][:train_size]
 
-test_posts = data['id'][train_size:]
+test_posts = data['title'][train_size:]
 test_tags = data['Status'][train_size:]
 test_files_names = data['filename'][train_size:]
 
@@ -102,6 +97,7 @@ history = model.fit(x_train, y_train,
 
 # creates a HDF5 file 'my_model.h5'
 model.model.save('my_model.h5')
+
 
 # Save Tokenizer i.e. Vocabulary
 with open('tokenizer.pickle', 'wb') as handle:
